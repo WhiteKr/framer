@@ -50,6 +50,8 @@ class _HomePageState extends State<HomePage> {
           children: [
             const Text('Choose an image from your gallery'),
             _buildPhotoArea(),
+            const SizedBox(height: 20),
+            _buildFilterList(),
             Row(
               children: [
                 Expanded(
@@ -78,16 +80,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildPhotoArea() {
-    return Column(
-      children: [
-        ImageFrame(
-          image: _image != null ? Image.file(File(_image!.path)) : null,
-          type: _frameType,
-          dimension: 300,
-        ),
-        const SizedBox(height: 20),
-        _buildFilterList(),
-      ],
+    return ImageFrame(
+      image: _image != null ? Image.file(File(_image!.path)) : null,
+      type: _frameType,
+      dimension: 300,
     );
   }
 
