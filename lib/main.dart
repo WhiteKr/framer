@@ -28,12 +28,26 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Framer')),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {},
-          child: const Text('Choose an image'),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Expanded(
+              child: Center(
+                child: Text('Choose an image from your gallery'),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: pickImageFromGallery,
+              child: const Text('Choose an image'),
+            ),
+          ],
         ),
       ),
     );
   }
+
+  void pickImageFromGallery() {}
 }
