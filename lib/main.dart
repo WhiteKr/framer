@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:framer/services/framer/image_frame.dart';
+import 'package:framer/services/framer/image_frame_type.dart';
 import 'package:image_picker/image_picker.dart';
 
 void main() {
@@ -33,6 +35,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   XFile? _image;
+  ImageFrameType _frameType = ImageFrameType.squareOutline;
+
   final ImagePicker picker = ImagePicker();
 
   @override
@@ -76,17 +80,11 @@ class _HomePageState extends State<HomePage> {
   Widget _buildPhotoArea() {
     return Column(
       children: [
-        _image != null
-            ? SizedBox(
-                width: 300,
-                height: 300,
-                child: Image.file(File(_image!.path)),
-              )
-            : Container(
-                width: 300,
-                height: 300,
-                color: Colors.grey,
-              ),
+        ImageFrame(
+          image: _image != null ? Image.file(File(_image!.path)) : null,
+          type: _frameType,
+          dimension: 300,
+        ),
         const SizedBox(height: 20),
         _buildFilterList(),
       ],
@@ -97,18 +95,22 @@ class _HomePageState extends State<HomePage> {
     return Container(
       color: Colors.grey,
       height: 80,
-      child: _image != null
-          ? ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => Container(
-                width: 80,
-                color: Colors.black,
-                child: const Text('hi'),
-              ),
-              separatorBuilder: (context, index) => const SizedBox(width: 10),
-              itemCount: 10,
-            )
-          : Container(),
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        separatorBuilder: (context, index) => const SizedBox(width: 10),
+        itemBuilder: (context, index) {
+          ImageFrameType item = ImageFrameType.values[index];
+          return MaterialButton(
+            child: ImageFrame(type: item),
+            onPressed: () {
+              setState(() {
+                _frameType = item;
+              });
+            },
+          );
+        },
+        itemCount: ImageFrameType.values.length,
+      ),
     );
   }
 
