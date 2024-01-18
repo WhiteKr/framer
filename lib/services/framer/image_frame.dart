@@ -10,7 +10,7 @@ class ImageFrame extends StatelessWidget {
     super.key,
     this.image,
     required this.type,
-    this.dimension = 100,
+    this.dimension = 300,
   });
 
   @override
@@ -19,7 +19,6 @@ class ImageFrame extends StatelessWidget {
       color: Colors.black,
       width: dimension,
       height: dimension,
-      // color: Colors.red,
       child: Stack(
         alignment: Alignment.center,
         children: [

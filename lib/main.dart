@@ -35,7 +35,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   XFile? _image;
-  ImageFrameType _frameType = ImageFrameType.squareOutline;
+  ImageFrameType _frameType = ImageFrameType.none;
 
   final ImagePicker picker = ImagePicker();
 
@@ -96,13 +96,20 @@ class _HomePageState extends State<HomePage> {
         separatorBuilder: (context, index) => const SizedBox(width: 10),
         itemBuilder: (context, index) {
           ImageFrameType item = ImageFrameType.values[index];
-          return MaterialButton(
-            child: ImageFrame(type: item),
-            onPressed: () {
-              setState(() {
-                _frameType = item;
-              });
-            },
+          return FittedBox(
+            child: SizedBox(
+              child: MaterialButton(
+                onPressed: () {
+                  setState(() {
+                    _frameType = item;
+                  });
+                },
+                child: ImageFrame(
+                  type: item,
+                  dimension: 100,
+                ),
+              ),
+            ),
           );
         },
         itemCount: ImageFrameType.values.length,
